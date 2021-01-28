@@ -1,17 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const App = () =>{
+
+    const [developerInfo, setDeveloperInfo] = useState({
+        language: "python",
+        yearsExperience: 0,
+        isEmployed: false
+    });
+
+
+
+    const handleButtonClick = () => {
+        setDeveloperInfo({
+            language: 'javascript',
+            yearsExperience: 0
+        })
+    }
+
+    const handleInputChange = (event) => {
+        setDeveloperInfo({
+            ...developerInfo,
+            yearsExperience: event.target.value
+        })
+    }
+
+    const handleToggleEmployment = () => {
+        setDeveloperInfo((prevState) => ({
+            ...prevState,
+            isEmployed: !prevState.isEmployed
+        }))
+    }
+
+return (
+    <div>
+        <button onClick={handleToggleEmployment}>Toggle Employment Status</button>
+        <button onClick={handleButtonClick}>Change Language</button>
+        <p>I am learning {developerInfo.language}</p>
+        <input
+            type="number"
+            onChange={handleInputChange}
+        />
+        <p>I have {developerInfo.yearsExperience} years of experience</p>
+        <p>Employment status: {developerInfo.isEmployed ? "Employed" : "Unemployed"}</p>
+    </div>
+)
+
+}
+const rootNode = document.getElementById('root')
+
+ReactDOM.render(<App />, rootNode);
