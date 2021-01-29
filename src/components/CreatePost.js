@@ -1,6 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react';
 
-export default function CreatePost({ user, setPosts, posts }) {
+import { PostContext } from '../App';
+
+export default function CreatePost({ user }) {
+
+    const { dispatch } = useContext(PostContext);
 
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
@@ -8,9 +12,8 @@ export default function CreatePost({ user, setPosts, posts }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const post = { content, image, user };
-        const newPosts = [post, ...posts];
-        setPosts(newPosts);
+        const post = { content, image, user, id:Date.now() };
+        dispatch({ type: "ADD_POST", payload: { post} })
         setContent("");
         imageInputRef.current.value = '';
     }
