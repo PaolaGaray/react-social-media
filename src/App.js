@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Header from './components/Header';
 import CreatePost from './components/CreatePost';
 import PostList from './components/PostList';
-import postReducer from './reducer';
+import postReducer from './reducers/postReducer';
 
 export const UserContext = createContext();
 export const PostContext = createContext({
